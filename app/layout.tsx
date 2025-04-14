@@ -8,6 +8,7 @@ import Footer from "@/components/footer"
 import ContactFloat from "@/components/contact-float"
 import ScrollToTop from "@/components/scroll-to-top"
 import Script from "next/script"
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -111,6 +112,7 @@ export default function RootLayout({
             <Footer />
             <ContactFloat />
           </div>
+          <Analytics />
         </ThemeProvider>
 
         {/* Structured Data for Organization */}
