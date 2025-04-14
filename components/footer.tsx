@@ -13,9 +13,11 @@ export function Footer() {
             </p>
             <div className="flex space-x-4">
               <Link
-                href="#"
+                href="https://www.facebook.com/profile.php?id=61574648715598"
                 className="text-muted-foreground hover:text-blue-600 transition-colors"
                 aria-label="Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Facebook className="h-5 w-5" />
               </Link>
