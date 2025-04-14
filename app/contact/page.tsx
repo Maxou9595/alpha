@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -23,7 +23,7 @@ export default function ContactPage() {
   const [showActivationInfo, setShowActivationInfo] = useState(false)
 
   // Détection de l'environnement de prévisualisation
-  useState(() => {
+  useEffect(() => {
     // Vérifier si nous sommes en prévisualisation (Vercel Preview)
     const isPreviewEnv =
       typeof window !== "undefined" &&
@@ -33,10 +33,10 @@ export default function ContactPage() {
         window.location.hostname === "")
 
     setIsPreview(isPreviewEnv)
-  })
+  }, [])
 
   // Effet pour le compte à rebours et la redirection
-  useState(() => {
+  useEffect(() => {
     let timer: NodeJS.Timeout | null = null
 
     if (isSuccess && countdown > 0) {
@@ -50,7 +50,7 @@ export default function ContactPage() {
     return () => {
       if (timer) clearTimeout(timer)
     }
-  })
+  }, [isSuccess, countdown, router])
 
   // Fonction pour activer le mode prévisualisation forcé
   const handleForcePreview = () => {
@@ -100,7 +100,8 @@ export default function ContactPage() {
         setIsSuccess(true)
       } else {
         // Vérifier si c'est une erreur d'activation
-        if (data.message && data.message.includes("Activation")) {
+        const errorMessage = data.message || ""
+        if (errorMessage.includes("Activation") || errorMessage.includes("activation")) {
           setShowActivationInfo(true)
           setSubmitError(
             "Le formulaire nécessite une activation. Veuillez vérifier l'email envoyé à maximeiori08@gmail.com.",
